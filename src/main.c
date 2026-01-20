@@ -11,6 +11,7 @@ int main() {
 
     ColumnStats stats[NUM_FEATURES];
     calculate_stats(ds, stats);
+    impute_missing(ds, stats);
 
     Matrix x;
     Vector y;

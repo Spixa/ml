@@ -92,3 +92,22 @@ void calculate_stats(const Dataset *ds, ColumnStats stats[]) {
         }
     }
 }
+
+void impute_missing(Dataset *ds, const ColumnStats stats[]) {
+    int total = 0;
+
+    for (int col = 0; col < 9; col++) {
+        if (stats[col].missing > 0) {
+            for (int i = 0; i < ds->count; i++) {
+                if (isnan(get(&ds->points[i], col))) {
+                    set(&ds->points[i], col, stats[col].mean);
+                    total++;
+                }
+            }
+        }
+    }
+
+    if (total > 0) {
+        printf("Imputed %d missing values\n", total);
+    }
+} 
