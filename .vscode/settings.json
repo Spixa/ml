@@ -1,0 +1,15 @@
+{
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}",
+        "--query-driver=/usr/bin/gcc",
+        "--background-index",
+        "--clang-tidy"
+    ],
+    "clangd.fallbackFlags": [
+        "-I${workspaceFolder}/include"
+    ],
+    "files.associations": {
+        "*.h": "c"
+    },
+    "C_Cpp.intelliSenseEngine": "disabled"  // Disable Microsoft's engine when using clangd
+}
