@@ -14,14 +14,6 @@ static void set(DataPoint *dp, int col, double with) {
     *((double*)dp + col) = with;
 }
 
-// used for qsort
-int cmp_dbl(const void *a, const void *b) {
-    double x = *(const double*) a;
-    double y = *(const double*) b;
-
-    return (x > y) - (x < y); // 1 if more, 0 if same, -1 if less
-}
-
 // utils:
 double calc_mean(const Dataset* ds, int col) {
     double sum = 0.0;

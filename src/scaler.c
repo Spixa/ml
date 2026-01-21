@@ -1,25 +1,59 @@
-#include <math.h>
 #include <stdlib.h>
 #include "scaler.h"
 
+// void scale_matrix(Matrix *x, MatScaler *scaler) {
+//     scaler->size = x->cols;
+//     scaler->min = malloc(x->cols * sizeof(double));
+//     scaler->max = malloc(x->cols * sizeof(double));
+
+//     for (int col = 0; col < x->cols; col++) {
+//         scaler->min[col] = INFINITY;
+//         scaler->max[col] = -INFINITY;
+
+//         for (int row = 0; row < x->rows; row++) {
+//             double value = x->data[row][col];
+//             if (value < scaler->min[col]) scaler->min[col] = value;
+//             if (value > scaler->max[col]) scaler->max[col] = value;
+//         }
+
+//         for (int row = 0; row < x->rows; row++) {
+//             x->data[row][col] = scale_value(x->data[row][col], scaler->min[col], scaler->max[col]);
+//         }
+//     }
+// }
+
 void scale_matrix(Matrix *x, MatScaler *scaler) {
     scaler->size = x->cols;
-    scaler->min = malloc(x->cols * sizeof(double));
-    scaler->max = malloc(x->cols * sizeof(double));
-
+    scaler->median = malloc(x->cols * sizeof(double));
+    scaler->iqr = malloc(x->cols * sizeof(double));
+    
     for (int col = 0; col < x->cols; col++) {
-        scaler->min[col] = INFINITY;
-        scaler->max[col] = -INFINITY;
-
+        double *column = malloc(x->rows * sizeof(double));
         for (int row = 0; row < x->rows; row++) {
-            double value = x->data[row][col];
-            if (value < scaler->min[col]) scaler->min[col] = value;
-            if (value > scaler->max[col]) scaler->max[col] = value;
+            column[row] = x->data[row][col];
         }
-
+        
+        qsort(column, x->rows, sizeof(double), cmp_dbl);
+        
+        // median = q2
+        scaler->median[col] = column[x->rows / 2];
+        
+        int q1_index = (int)(0.25 * x->rows);
+        int q3_index = (int)(0.75 * x->rows);
+        double q1 = column[q1_index];
+        double q3 = column[q3_index];
+        scaler->iqr[col] = q3 - q1;
+        
+        // robust scaling: (x - median) / IQR
         for (int row = 0; row < x->rows; row++) {
-            x->data[row][col] = scale_value(x->data[row][col], scaler->min[col], scaler->max[col]);
+            if (scaler->iqr[col] > 0) {
+                x->data[row][col] = (x->data[row][col] - scaler->median[col]) / scaler->iqr[col];
+            } else {
+                x->data[row][col] = 0.0;
+            }
         }
+        
+        free(column);
     }
 }
 

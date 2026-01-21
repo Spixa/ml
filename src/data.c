@@ -51,8 +51,7 @@ Dataset* load_dataset(const char* path) {
         char *token;
         
         line[strcspn(line, "\n")] = '\0';
-        
-        char *save_ptr = NULL;
+
         while ((token = strsep(&line_ptr, ",")) != NULL && col < 9) {
             if (strlen(token) == 0 || is_missing(token)) {
                 *((double*)dp + col) = NAN;
@@ -77,21 +76,40 @@ void free_dataset(Dataset *dataset) {
 }
 
 void prepare_data(const Dataset *dataset, Matrix *x, Vector *y) {
-    *x = create_matrix(dataset->count, NUM_FEATURES);
-    *y = create_vector(dataset->count);
+    const double MAX_TOTAL_ROOMS = 10000.0;
+    const double MAX_POPULATION = 10000.0; 
 
+    int valid_count = 0;
     for (int i = 0; i < dataset->count; i++) {
         const DataPoint *dp = &dataset->points[i];
-
-        x->data[i][0] = dp->longitude;
-        x->data[i][1] = dp->latitude;
-        x->data[i][2] = dp->median_house_age;
-        x->data[i][3] = dp->total_rooms;
-        x->data[i][4] = dp->total_bedrooms;
-        x->data[i][5] = dp->population;
-        x->data[i][6] = dp->households;
-        x->data[i][7] = dp->median_income;
-        
-        y->data[i] = dp->median_house_value;
+        if (dp->total_rooms <= MAX_TOTAL_ROOMS && dp->population <= MAX_POPULATION) {
+            valid_count++;
+        }
     }
+    
+    *x = create_matrix(valid_count, NUM_FEATURES);
+    *y = create_vector(valid_count);
+
+    int idx = 0;
+    for (int i = 0; i < dataset->count; i++) {
+        const DataPoint *dp = &dataset->points[i];
+        
+        if (dp->total_rooms > MAX_TOTAL_ROOMS || dp->population > MAX_POPULATION) {
+            continue;
+        }
+
+        x->data[idx][0] = dp->longitude;
+        x->data[idx][1] = dp->latitude;
+        x->data[idx][2] = dp->median_house_age;
+        x->data[idx][3] = dp->total_rooms;
+        x->data[idx][4] = dp->total_bedrooms;
+        x->data[idx][5] = dp->population;
+        x->data[idx][6] = dp->households;
+        x->data[idx][7] = dp->median_income;
+        
+        y->data[idx] = dp->median_house_value;
+        idx++;
+    }
+
+    printf("Removed %d outlier rows\n", dataset->count - valid_count);
 }

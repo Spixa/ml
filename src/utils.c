@@ -49,3 +49,10 @@ void init_random() {
 double random_double(double min, double max) {
     return min + (rand() / (double)RAND_MAX) * (max - min);
 }
+
+int cmp_dbl(const void *a, const void *b) {
+    double x = *(const double*) a;
+    double y = *(const double*) b;
+
+    return (x > y) - (x < y); // 1 if more, 0 if same, -1 if less
+}

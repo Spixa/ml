@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
     Dataset *dataset = load_dataset(argv[1]);
     if (!dataset) return 1;
     printf("Loaded %d records\n", dataset->count);
-    ColumnStats stats[NUM_FEATURES];
+    ColumnStats stats[9];
     calculate_stats(dataset, stats);
     impute_missing(dataset, stats);
 
@@ -30,6 +30,7 @@ int main(int argc, char *argv[]) {
 
     MatScaler scaler;
     scale_matrix(&X, &scaler);
+    // normalize_matrix(&X, &scaler);
     printf("Features scaled to [0, 1]\n");
 
     DataSplit split;
@@ -43,10 +44,9 @@ int main(int argc, char *argv[]) {
     train(&split.x_train, &split.y_train, &model, learning_rate, epochs);
 
     test(&split.x_test, &split.y_test, &model);
-    show_predictions(&split.x_test, &split.y_test, &model, 5);
-    // show_equation(&model);
+    show_predictions(&split.x_test, &split.y_test, &model, 15);
+    show_line_equation(&model);
 
-    // Cleanup
     free_dataset(dataset);
     free_matrix(&X);
     free_vector(&y);

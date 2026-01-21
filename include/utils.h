@@ -1,6 +1,6 @@
 #pragma once
 
-#define NUM_FEATURES 9
+#define NUM_FEATURES 8
 
 typedef struct {
     double **data;
@@ -23,3 +23,5 @@ void free_vector(Vector* vector);
 // random
 void init_random();
 double random_double(double min, double max);
+
+int cmp_dbl(const void *a, const void *b) ;
