@@ -16,6 +16,8 @@ int main(int argc, char *argv[]) {
     int epochs = (argc > 3) ? atoi(argv[3]) : 1000;
     double train_split = (argc > 4) ? atof(argv[4]) : 0.8;
 
+    train_split = train_split > 1.0 ? 1.0 : train_split;
+    
     printf("Loading dataset: %s\n", argv[1]);
     Dataset *dataset = load_dataset(argv[1]);
     if (!dataset) return 1;
