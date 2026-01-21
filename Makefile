@@ -36,7 +36,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 # Run the program
 run: all
 	@echo "Running program..."
-	@./$(BUILD_DIR)/$(TARGET)
+	@./$(BUILD_DIR)/$(TARGET) housing.csv
 
 # Clean build artifacts
 clean:

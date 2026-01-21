@@ -10,7 +10,7 @@ static double get(const DataPoint *dp, int col) {
     return *((double*)dp + col);
 }
 
-static void set(const DataPoint *dp, int col, double with) {
+static void set(DataPoint *dp, int col, double with) {
     *((double*)dp + col) = with;
 }
 
