@@ -25,3 +25,7 @@ typedef struct {
 Dataset* load_dataset(const char *path);
 void free_dataset(Dataset* dataset);
 void prepare_data(const Dataset *dataset, Matrix *x, Vector *y);
+
+Dataset* allocate_dataset();
+void expand_dataset(Dataset* dataset);
+int is_missing(const char* str);

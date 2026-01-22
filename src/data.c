@@ -76,8 +76,8 @@ void free_dataset(Dataset *dataset) {
 }
 
 void prepare_data(const Dataset *dataset, Matrix *x, Vector *y) {
-    const double MAX_TOTAL_ROOMS = 10000.0;
-    const double MAX_POPULATION = 10000.0; 
+    const double MAX_TOTAL_ROOMS = INFINITY;
+    const double MAX_POPULATION = INFINITY; 
 
     int valid_count = 0;
     for (int i = 0; i < dataset->count; i++) {

@@ -36,8 +36,31 @@ void scale_matrix(Matrix *x, MatScaler *scaler) {
     }
 }
 
-double scale_value(double value, double min, double max) {
-    if (max - min == 0) return 0.0;
+// void scale_matrix(Matrix *x, MatScaler *scaler) {
+//     scaler->size = x->cols;
+//     scaler->median = malloc(x->cols * sizeof(double)); // reuse for mean
+//     scaler->iqr = malloc(x->cols * sizeof(double));
 
-    return (value - min) / (max - min);
-}
+//     for (int col = 0; col < x->cols; col++) {
+//         double sum = 0.0;
+//         for (int row = 0; row < x->rows; row++) {
+//             sum += x->data[row][col];
+//         }
+//         double mean = sum / x->rows;
+//         scaler->median[col] = mean; // store mean here
+
+//         double sq_sum = 0.0;
+//         for (int row = 0; row < x->rows; row++) {
+//             double diff = x->data[row][col] - mean;
+//             sq_sum += diff * diff;
+//         }
+//         double std = sqrt(sq_sum / x->rows);
+//         if (std == 0.0) std = 1.0; // avoid division by zero
+//         scaler->iqr[col] = std; // std is saved as iqr
+
+//         // scale
+//         for (int row = 0; row < x->rows; row++) {
+//             x->data[row][col] = (x->data[row][col] - mean) / std;
+//         }
+//     }
+// }

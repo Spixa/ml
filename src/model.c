@@ -83,14 +83,15 @@ void free_split(DataSplit *split) {
 void init_model(LinearModel *model, int num_features) {
     model->num_features = num_features;
     model->weights = malloc(num_features * sizeof(double));
-    model->bias = 200000.0;
     model->cost = 0.0;
     
     // according to AI we will benefit from initially having random normalized weights rather than zeroed out weights
+    model->bias = 0.0; // small starting bias
     init_random();
     for (int i = 0; i < num_features; i++) {
-        model->weights[i] = 10000.0 * ((rand() / (double)RAND_MAX) * 2.0 - 1.0);
+        model->weights[i] = random_double(-0.1, 0.1); // small random weights
     }
+
 }
 
 void free_model(LinearModel *model) {
@@ -132,6 +133,9 @@ void train(Matrix *x, Vector *y, LinearModel *model, double learning_rate, int m
             double mse = compute_mse(x, y, model);
             printf("Epoch %4d: MSE = %.2f\n", epoch, mse);
         }
+        
+        // learning rate decay over time
+        if (epoch % 500 == 0 && learning_rate > 1e-4) learning_rate *= 0.95;
     }
 
     model->cost = compute_mse(x, y, model);
@@ -287,8 +291,16 @@ void test(Matrix *x_test, Vector *y_test, LinearModel *model) {
     printf("   Within 20%% error: %5d/%d (%5.1f%%)\n", within_20pct, n, (within_20pct * 100.0) / n);
     printf("   Within 30%% error: %5d/%d (%5.1f%%)\n", within_30pct, n, (within_30pct * 100.0) / n);
     
+    double mape = error_percent_sum / n;
+    double accuracy = 100.0 - mape;
+
+    printf("\n9. MAPE-based Accuracy:\n");
+    printf("   100 - MAPE: %.2f%%\n", accuracy);
+
     printf("\n==============================================\n");
     
+
+
     free(predictions);
     free(errors);
     free(abs_errors);

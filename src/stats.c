@@ -6,11 +6,11 @@
 #include "data.h"
 
 // short hands
-static double get(const DataPoint *dp, int col) {
+double get(const DataPoint *dp, int col) {
     return *((double*)dp + col);
 }
 
-static void set(DataPoint *dp, int col, double with) {
+void set(DataPoint *dp, int col, double with) {
     *((double*)dp + col) = with;
 }
 
@@ -92,7 +92,7 @@ void impute_missing(Dataset *ds, const ColumnStats stats[]) {
         if (stats[col].missing > 0) {
             for (int i = 0; i < ds->count; i++) {
                 if (isnan(get(&ds->points[i], col))) {
-                    set(&ds->points[i], col, stats[col].mean);
+                    set(&ds->points[i], col, stats[col].median);
                     total++;
                 }
             }

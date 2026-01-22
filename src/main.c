@@ -5,6 +5,8 @@
 #include "scaler.h"
 #include "stats.h"
 #include "utils.h"
+#include "zscore.h"
+// #include "zscore.h"
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -21,6 +23,17 @@ int main(int argc, char *argv[]) {
     printf("Loading dataset: %s\n", argv[1]);
     Dataset *dataset = load_dataset(argv[1]);
     if (!dataset) return 1;
+
+    Dataset *filtered = remove_outliers_zscore(dataset, 1.35);
+    
+    if (!filtered || filtered->count == 0) {
+        printf("No data after outlier removal!\n");
+        filtered = dataset;
+    } else {
+        free_dataset(dataset);
+        dataset = filtered;
+    }
+    
     printf("Loaded %d records\n", dataset->count);
     ColumnStats stats[9];
     calculate_stats(dataset, stats);
