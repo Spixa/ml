@@ -6,7 +6,6 @@ typedef struct {
     double **data;
     int rows;
     int cols;
-
 } Matrix;
 
 typedef struct {

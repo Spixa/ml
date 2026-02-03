@@ -33,7 +33,7 @@ Dataset* remove_outliers_zscore(Dataset *original, double z_threshold) {
         }
     }
     
-    printf("\n=== Z-Score Outlier Detection (threshold: %.1fσ) ===\n", z_threshold);
+    printf("Removing outliers using zscore with threshold being %.1fσ (times the standard deviation)\n", z_threshold);
     
     int outliers_per_col[9] = {0};
     
@@ -70,8 +70,8 @@ Dataset* remove_outliers_zscore(Dataset *original, double z_threshold) {
         }
     }
     
-    printf("\nRemoved %d outliers total\n", removed);
-    printf("Kept %d records\n", filtered->count);
+    printf("\tRemoved %d outliers total\n", removed);
+    printf("\tKept %d records\n", filtered->count);
     
     return filtered;
 }
