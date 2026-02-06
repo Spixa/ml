@@ -246,29 +246,22 @@ void test(Matrix *x_test, Vector *y_test, LinearModel *model) {
     double p90_error = sorted_abs_errors[(int)(n * 0.90)];
     
     printf("\n==============================================\n");
-    printf("           MODEL TEST REPORT\n");
+    printf("           Model test report\n");
     printf("==============================================\n");
     
-    printf("\n1. DATASET OVERVIEW:\n");
-    printf("   Test samples: %d\n", n);
-    printf("   Target range: $%.2f to $%.2f\n", y_min, y_max);
-    printf("   Average price: $%.2f\n", y_mean);
+    printf("Test samples: %d\n", n);
+    printf("Target range: $%.2f to $%.2f\n", y_min, y_max);
+    printf("Average price: $%.2f\n", y_mean);
+    printf("R-squared (R²): %.4f\n", r2);
     
-    printf("\n2. QUALITY:\n");
-    printf("   R-squared (R²): %.4f\n", r2);
-    
-    printf("\n3. ERROR METRICS (in dollars):\n");
+    printf("\nError metrics (in dollars):\n");
     printf("   Mean Absolute Error (MAE):    $%11.2f\n", mae);
     printf("   Root Mean Squared Error (RMSE): $%11.2f\n", rmse);
     printf("   Mean Squared Error (MSE):     $%11.2f\n", mse);
     printf("   Average error (bias):         $%11.2f\n", avg_error);
     printf("   Median absolute error:        $%11.2f\n", median_error);
-    
-    printf("\n4. ERROR RELATIVE TO AVERAGE PRICE:\n");
-    printf("   MAE / Average price:         %9.1f%%\n", (mae / y_mean) * 100);
-    printf("   RMSE / Average price:        %9.1f%%\n", (rmse / y_mean) * 100);
-    
-    printf("\n5. ERROR DISTRIBUTION (percentiles):\n");
+
+    printf("\nError distribution (percentiles):\n");
     printf("   Min error:                  $%11.2f\n", min_abs_error);
     printf("   25th percentile:            $%11.2f\n", sorted_abs_errors[(int)(n * 0.25)]);
     printf("   Median (50th):              $%11.2f\n", median_error);
@@ -276,25 +269,20 @@ void test(Matrix *x_test, Vector *y_test, LinearModel *model) {
     printf("   90th percentile:            $%11.2f\n", p90_error);
     printf("   Max error:                  $%11.2f\n", max_abs_error);
     
-    printf("\n6. ACCURACY (dollar amounts):\n");
+    printf("\nAccuracy:\n");
     printf("   Within $10,000:  %5d/%d (%5.1f%%)\n", within_10k, n, (within_10k * 100.0) / n);
     printf("   Within $20,000:  %5d/%d (%5.1f%%)\n", within_20k, n, (within_20k * 100.0) / n);
     printf("   Within $50,000:  %5d/%d (%5.1f%%)\n", within_50k, n, (within_50k * 100.0) / n);
     
-    printf("\n7. PERCENTAGE ERROR ANALYSIS:\n");
+    printf("\nError percentages:\n");
     printf("   Average %% error:            %9.1f%%\n", avg_error_percent);
     printf("   Median %% error:             %9.1f%%\n", median_error_percent);
     printf("   Max %% error:                %9.1f%%\n", max_error_percent);
     
-    printf("\n8. ACCURACY (percentage):\n");
-    printf("   Within 10%% error: %5d/%d (%5.1f%%)\n", within_10pct, n, (within_10pct * 100.0) / n);
-    printf("   Within 20%% error: %5d/%d (%5.1f%%)\n", within_20pct, n, (within_20pct * 100.0) / n);
-    printf("   Within 30%% error: %5d/%d (%5.1f%%)\n", within_30pct, n, (within_30pct * 100.0) / n);
-    
     double mape = error_percent_sum / n;
     double accuracy = 100.0 - mape;
 
-    printf("\n9. MAPE-based Accuracy:\n");
+    printf("\nMAPE Accuracy:\n");
     printf("   100 - MAPE: %.2f%%\n", accuracy);
 
     printf("\n==============================================\n");
@@ -346,15 +334,15 @@ void show_line_equation(LinearModel *model) {
     printf("\n\n");
     
     const char *features[] = {
-        "scaled_longitude",
-        "scaled_latitude",
-        "scaled_age",
-        "scaled_rooms",
-        "scaled_bedrooms",
-        "scaled_population",
-        "scaled_households",
-        "scaled_income",
-        "scaled_ocean_proximity"
+        "scaled longitude",
+        "scaled latitude",
+        "scaled age",
+        "scaled rooms",
+        "scaled bedrooms",
+        "scaled population",
+        "scaled households",
+        "scaled income",
+        "scaled ocean proximity"
     };
     
     printf("Where (all features scaled 0-1):\n");
