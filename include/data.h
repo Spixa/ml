@@ -14,6 +14,7 @@ typedef struct {
     double households;
     double median_income;
     double median_house_value;
+    double ocean_proximity; // encoded with labels
 } DataPoint;
 
 typedef struct {

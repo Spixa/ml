@@ -353,10 +353,12 @@ void show_line_equation(LinearModel *model) {
         "scaled_bedrooms",
         "scaled_population",
         "scaled_households",
-        "scaled_income"
+        "scaled_income",
+        "scaled_ocean_proximity"
     };
     
     printf("Where (all features scaled 0-1):\n");
+    
     for (int i = 0; i < model->num_features; i++) {
         printf("  x%d = %s (weight: %+.4f)\n", i+1, features[i], model->weights[i]);
     }

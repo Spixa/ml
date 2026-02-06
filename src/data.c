@@ -24,6 +24,44 @@ int is_missing(const char* str) {
     return strlen(str) == 0 || str[0] == '\0' || strcmp(str, "NA") == 0 || strcmp(str, "nan") == 0;
 }
 
+double encode_ocean_proximity(const char* token) {
+    char cleaned[50];
+    strncpy(cleaned, token, sizeof(cleaned));
+    cleaned[sizeof(cleaned)-1] = '\0';
+    
+    if (cleaned[0] == '"' || cleaned[0] == '\'') {
+        memmove(cleaned, cleaned + 1, strlen(cleaned));
+    }
+    if (cleaned[strlen(cleaned)-1] == '"' || cleaned[strlen(cleaned)-1] == '\'') {
+        cleaned[strlen(cleaned)-1] = '\0';
+    }
+    
+    while (cleaned[0] == ' ') {
+        memmove(cleaned, cleaned + 1, strlen(cleaned));
+    }
+
+    int len = strlen(cleaned);
+    while (len > 0 && cleaned[len-1] == ' ') {
+        cleaned[len-1] = '\0';
+        len--;
+    }
+    
+    // label encoding mappings
+    if (strcmp(cleaned, "<1H OCEAN") == 0 || strcmp(cleaned, "\"<1H OCEAN\"") == 0) {
+        return 0.2;
+    } else if (strcmp(cleaned, "INLAND") == 0 || strcmp(cleaned, "\"INLAND\"") == 0) {
+        return 0.4;
+    } else if (strcmp(cleaned, "NEAR OCEAN") == 0 || strcmp(cleaned, "\"NEAR OCEAN\"") == 0) {
+        return 0.6;
+    } else if (strcmp(cleaned, "NEAR BAY") == 0 || strcmp(cleaned, "\"NEAR BAY\"") == 0) {
+        return 0.8;
+    } else if (strcmp(cleaned, "ISLAND") == 0 || strcmp(cleaned, "\"ISLAND\"") == 0) {
+        return 1.0;
+    } else {
+        return NAN;
+    }
+}
+
 // external functions:
 
 Dataset* load_dataset(const char* path) {
@@ -52,11 +90,20 @@ Dataset* load_dataset(const char* path) {
         
         line[strcspn(line, "\n")] = '\0';
 
-        while ((token = strsep(&line_ptr, ",")) != NULL && col < 9) {
-            if (strlen(token) == 0 || is_missing(token)) {
-                *((double*)dp + col) = NAN;
-            } else {
-                *((double*)dp + col) = atof(token);
+        while ((token = strsep(&line_ptr, ",")) != NULL && col < 10) {
+            if (col < 9) {  // continuous features
+                if (strlen(token) == 0 || is_missing(token)) {
+                    *((double*)dp + col) = NAN;
+                } else {
+                    *((double*)dp + col) = atof(token);
+                }
+            } 
+            else if (col == 9) {  // categorical feature
+                if (is_missing(token)) {
+                    dp->ocean_proximity = NAN;
+                } else {
+                    dp->ocean_proximity = encode_ocean_proximity(token);
+                }
             }
             col++;
         }
@@ -106,6 +153,7 @@ void prepare_data(const Dataset *dataset, Matrix *x, Vector *y) {
         x->data[idx][5] = dp->population;
         x->data[idx][6] = dp->households;
         x->data[idx][7] = dp->median_income;
+        x->data[idx][8] = dp->ocean_proximity;
         
         y->data[idx] = dp->median_house_value;
         idx++;

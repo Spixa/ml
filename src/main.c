@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     Dataset *dataset = load_dataset(argv[1]);
     if (!dataset) return 1;
 
-    Dataset *filtered = remove_outliers_zscore(dataset, 2);
+    Dataset *filtered = remove_outliers_zscore(dataset, 1.35);
     
     if (!filtered || filtered->count == 0) {
         printf("No data after outlier removal!\n");
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     }
     
     printf("Loaded %d records\n", dataset->count);
-    ColumnStats stats[9];
+    ColumnStats stats[10];
     calculate_stats(dataset, stats);
     impute_missing(dataset, stats);
 
