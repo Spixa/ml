@@ -6,7 +6,7 @@
 #include "stats.h"
 #include "utils.h"
 #include "zscore.h"
-// #include "zscore.h"
+#include "plot.h"  // Simple include
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     Dataset *dataset = load_dataset(argv[1]);
     if (!dataset) return 1;
 
-    Dataset *filtered = remove_outliers_zscore(dataset, 1.35);
+    Dataset *filtered = remove_outliers_zscore(dataset, 1.85);
     
     if (!filtered || filtered->count == 0) {
         printf("No data after outlier removal!\n");
@@ -45,7 +45,6 @@ int main(int argc, char *argv[]) {
 
     MatScaler scaler;
     scale_matrix(&X, &scaler);
-    // normalize_matrix(&X, &scaler);
     printf("Features scaled to [0, 1]\n");
 
     DataSplit split;
@@ -61,7 +60,16 @@ int main(int argc, char *argv[]) {
     test(&split.x_test, &split.y_test, &model);
     show_predictions(&split.x_test, &split.y_test, &model, 15);
     show_line_equation(&model);
-
+    
+    Vector predictions = create_vector(split.test_size);
+    for (int i = 0; i < split.test_size; i++) {
+        predictions.data[i] = predict(split.x_test.data[i], &model);
+    }
+    
+    printf("Calling gnuplot to graph actual vs predicted...\n");
+    plot_actual_vs_predicted(&split.y_test, &predictions, "Actual vs Predicted Prices");
+    
+    free_vector(&predictions);
     free_dataset(dataset);
     free_matrix(&X);
     free_vector(&y);
