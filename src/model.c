@@ -277,7 +277,6 @@ void test(Matrix *x_test, Vector *y_test, LinearModel *model) {
     printf("\nError percentages:\n");
     printf("   Average %% error:            %9.1f%%\n", avg_error_percent);
     printf("   Median %% error:             %9.1f%%\n", median_error_percent);
-    printf("   Max %% error:                %9.1f%%\n", max_error_percent);
     
     double mape = error_percent_sum / n;
     double accuracy = 100.0 - mape;

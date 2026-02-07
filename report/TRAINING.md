@@ -1,0 +1,30 @@
+### خلاصه Training
+از روش گرادیان کاهشی استفاده می شود
+
+## تنظیمات اولیه Model
+مدل خطی ما یک ساختار به این شکل هستش:
+```c
+typedef struct {
+	double *weights; // A_n's in y = sum{{A_n}{x_n}} + B
+	double bias; // B in y = sum{{A_n}{x_n}} + B
+	int num_features;
+	double cost;
+} LinearModel;
+```
+
+باید به عرض از مبدا (bias) و وزن $x_i$ ها مقداری اولیه بدیم:
+```c
+model->bias = 0.0;
+init_random();
+for (int i = 0; i < num_features; i++) {
+	model->weights[i] = random_double(-0.1, 0.1);
+}
+```
+به گفته ‍`DeepSeek‍` وزن های کوچک ولی رندوم به همگرایی به `cost` سرعت می بخشند
+در واقع `cost` همان `MSE` است.
+
+کد Training همانند کد داده شده به ما هستش ولی ما از یک Decay هندسی با قدر نسبت $0.9$ هر 500 `epoch` استفاده میکنیم:
+```c
+if (epoch % 500 == 0 && learning_rate > 1e-4) learning_rate *= 0.95;
+```
+این هم نیز به گفته چند هوش مصنوعی به سرعت همگرایی کمک می کند
