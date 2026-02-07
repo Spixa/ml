@@ -1,7 +1,34 @@
 ## پروژه یادگیری ماشین
 
 ---
+### اجرای سریع در Unix Based ها
+ابتدا پکیج `gnuplot` رو نصب کنید:
+```
+# Debian based
+sudo apt update && sudo apt install gnuplot
 
+# Arch based
+sudo pacman -S gnuplot
+
+# based Gentoo
+sudo emerge --ask sci-visualization/gnuplot
+
+# Mac
+brew install gnuplot
+
+# Ones who use DNF idk
+sudo dnf install gnuplot
+
+# The ones that use yum idfk
+sudo yum install gnuplot
+```
+کامند زیر را در اجرا کنید:
+```
+chmod +x demo.sh
+./demo.sh
+```
+
+---
 ![example_plot.png](example_plot.png)
 *مثال خروجی نرم افزار توسط `gnuplot`*
 ### خلاصه
@@ -41,7 +68,7 @@ longitude,latitude,housing_median_age,total_rooms,total_bedrooms,population,hous
 6. حذف کردن داده های پرت با روش `zscore`  
 7. نرمالایز کردن داده ها بین بازه ای مشخص با روش Robust Scaling که لازم به چند آماره دیگر است (چارک ها)
 8. استفاده از گرادیان کاهشی برای train کردن مدل با decay 
-	1. با `gnuplot` نمودار Actual vs Predicted رسم می کنیم
+9. با `gnuplot` نمودار Actual vs Predicted رسم می کنیم
 ---
 # لیست کار هایی که اپلیکیشن ما انجام میده برای رسیدن به این هدف
 
@@ -137,4 +164,3 @@ double random_double(double min, double max);
 int cmp_dbl(const void *a, const void *b);
 ```
 *فایل هدر utils که حاوی پروتوتایپ این قابلیت ها هست*
-	

@@ -11,12 +11,14 @@
             "id": "64fb7e523761c1be",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "report/_plot.png"
+                "file": "report/PLOTTING.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "_plot"
+              "icon": "lucide-file",
+              "title": "PLOTTING"
             }
           }
         ]
@@ -183,19 +185,19 @@
   },
   "active": "64fb7e523761c1be",
   "lastOpenFiles": [
-    "report/SCALER.md",
+    "report/PARSING.md",
     "README.md",
-    "example_plot.png",
-    "report/ZSCORE.md",
     "report/STATS.md",
+    "report/SCALER.md",
     "report/PREPARING.md",
     "report/PLOTTING.md",
+    "report/SPLITTING.md",
+    "report/TRAINING.md",
     "report/_plot.png",
+    "example_plot.png",
+    "report/ZSCORE.md",
     "report/Untitled",
     "report/TESTING.md",
-    "report/TRAINING.md",
-    "report/SPLITTING.md",
-    "report/PARSING.md",
     "report/گزارش تابع z-score.md",
     "report/گزارش تابع state.md",
     "report/گزارش تابع scaler.md",
