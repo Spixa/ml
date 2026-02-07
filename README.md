@@ -49,28 +49,32 @@ longitude,latitude,housing_median_age,total_rooms,total_bedrooms,population,hous
 ## 1. خواندن فایل سی اس وی (`data.c`)
 1. خوندن داده های ستون های ۱ تا ۹ برای هر فایل
 2. خواندن رشته آخر هر خط برای Label Encoding اون به یک عدد اسکیل شده بین ۰ تا ۱
-[توضیحات بیشتر](report/PARSING)
+
+[توضیحات بیشتر](report/PARSING.md)
 ## 2.  پیش پردازش فایل (`stats.c zscore.c`)
 1. حذف داده های پرت با ساختن بازه های مشخص دور میانه
 2. تشخیص خانه های خالی
 3. محاسبه آماره های مختلف: میانه میانگین مین ماکس (قبلا مد هم حساب میکردیم دیگ نه)
 4. پر کردن اون خانه ها با توجه به میانگین یا میانه (قابل تغییر )
-[توضیحات حذف داده پرت](report/ZSCORE)
-[توضیحات محاسبه آماره ها](report/STATS)
+
+[توضیحات حذف داده پرت](report/ZSCORE.md)
+[توضیحات محاسبه آماره ها](report/STATS.md)
 ## 3. آماده سازی برای یادگیری (`scaler.c model.c`)
 1. نرمالایز کردن داده ها با روش Robust Scaling
 2. شافل کردن آرایه کلی
 3. جدا کردن آرایه به دو بخش ($M$) train ($N$) + test با نسبت قابل تنظیم (دیفالت ۰.۸)
 4. تبدیل آرایه train (به سایز $10\times{N}$) به یه ماتریس $9 \times N$ و یه بردار $N$ بعدی
 5. تبدیل آرایه test (به سایز $10\times M$) به یه ماتریس $9\times M$ و یه بردار $M$ بعدی
-[توضیحات اسکالر Robust](report/SCALER)
-[توضیحات آماده سازی دیتاست به ماتریس و بردار](report/PREPARING)
-[توضیحات تقسیم دیتاست به دو بخش Test و Train](report/SPLITTING)
+
+[توضیحات اسکالر Robust](report/SCALER.md)
+[توضیحات آماده سازی دیتاست به ماتریس و بردار](report/PREPARING.md)
+[توضیحات تقسیم دیتاست به دو بخش Test و Train](report/SPLITTING.md)
 ##  4. یادگیری (`model.c`)
 1. انجام گرادیان کاهشی روی ماتریس و بردار train
 2. به دست آوردن تمامی وزن ها و بیاس 
 3. به دست آوردن cost. (همان `MSE`)
-[توضیحات Training](report/Training)
+
+[توضیحات Training](report/TRAINING.md)
 ## 5. آزمون (`model.c plot.c)
 
 1. استفاده از معادله خط به دست امده روی سطر های ماتریس در ترین با گرادیان کاهشی برای به دست آوردن قیمت حدس زده
@@ -81,8 +85,9 @@ longitude,latitude,housing_median_age,total_rooms,total_bedrooms,population,hous
 y = bias + w[0]x0 + w[1]x1 + ... + w[8]x8
 ```
 15. صدا زدن `gnuplot` برای رسم نمودار **Actual vs Predicted**
-[توضیحات Testing](report/TESTING)
-[توضیحات رسم نمودار توسط `gnuplot`](report/PLOTTING)
+
+[توضیحات Testing](report/TESTING.md)
+[توضیحات رسم نمودار توسط `gnuplot`](report/PLOTTING.md)
 
 ## در نهایت فایل `main.c` و `utils.c`
 

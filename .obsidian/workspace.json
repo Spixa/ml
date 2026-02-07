@@ -18,21 +18,8 @@
               "icon": "lucide-image",
               "title": "_plot"
             }
-          },
-          {
-            "id": "2da6c7f71fbdb08e",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "example_plot.png"
-              },
-              "icon": "lucide-image",
-              "title": "example_plot"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -194,21 +181,21 @@
       "bases:Create new base": false
     }
   },
-  "active": "859f17b564fa5c61",
+  "active": "64fb7e523761c1be",
   "lastOpenFiles": [
-    "report/STATS.md",
-    "README.md",
     "report/SCALER.md",
+    "README.md",
+    "example_plot.png",
+    "report/ZSCORE.md",
+    "report/STATS.md",
     "report/PREPARING.md",
     "report/PLOTTING.md",
     "report/_plot.png",
     "report/Untitled",
     "report/TESTING.md",
-    "report/ZSCORE.md",
     "report/TRAINING.md",
     "report/SPLITTING.md",
     "report/PARSING.md",
-    "example_plot.png",
     "report/گزارش تابع z-score.md",
     "report/گزارش تابع state.md",
     "report/گزارش تابع scaler.md",
