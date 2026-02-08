@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "report/ZSCORE.md",
+                "file": "report/SCALER.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ZSCORE"
+              "title": "SCALER"
             }
           }
         ]
@@ -187,15 +187,15 @@
   "lastOpenFiles": [
     "README.md",
     "report/PARSING.md",
-    "report/ZSCORE.md",
-    "report/TRAINING.md",
     "report/TESTING.md",
-    "example_plot.png",
+    "report/PLOTTING.md",
+    "report/SPLITTING.md",
     "report/PREPARING.md",
     "report/STATS.md",
-    "report/PLOTTING.md",
+    "report/TRAINING.md",
+    "report/ZSCORE.md",
     "report/SCALER.md",
-    "report/SPLITTING.md",
+    "example_plot.png",
     "report/_plot.png",
     "report/Untitled",
     "report/گزارش تابع z-score.md",
