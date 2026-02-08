@@ -4,7 +4,7 @@
 کافی است `make` را اجرا کنید. برای لیستی از عملیات های موجود دیگر `make help` را اجرا کنید
 ### اجرای سریع در Unix Based ها
 ابتدا پکیج `gnuplot` رو نصب کنید:
-```
+```bash
 # Debian based
 sudo apt update && sudo apt install gnuplot
 
@@ -24,7 +24,7 @@ sudo dnf install gnuplot
 sudo yum install gnuplot
 ```
 کامند زیر را در اجرا کنید:
-```
+```bash
 chmod +x demo.sh
 ./demo.sh
 ```
@@ -65,12 +65,14 @@ longitude,latitude,housing_median_age,total_rooms,total_bedrooms,population,hous
 2. فایل رو به صورت خط به خط خوانده و خط های مخرب رو پیدا کردیم
 3. فقط آماره های زیر رو برای هر ستون به دست آوردیم:‌ min, max, median, mean
 4. خانه های گمشده رو با روش Mean Imputation انجام میدیم  
-5. ستون کیفی Ocean Proximity با روش ساده Label Encoding مقدار دهی شده
+5. ستون کیفی Ocean Proximity با روش ساده Label Encoding مقدار دهی شده (روش One Hot نیز توضیح داده شده)
 6. حذف کردن داده های پرت با روش `zscore`  
 7. نرمالایز کردن داده ها بین بازه ای مشخص با روش Robust Scaling که لازم به چند آماره دیگر است (چارک ها)
-8. استفاده از گرادیان کاهشی برای train کردن مدل با decay 
-9. به دست آوردن معادله خط از طریق Linear Regression
-10. با `gnuplot` نمودار Actual vs Predicted رسم می کنیم
+8. تفسیم داده ها با شافل کردن آنها اول (روش Stratification هم نیز توضیح داده شده)
+9. نشان دادن چند مهندسی ويژگی ساده  
+10. استفاده از گرادیان کاهشی برای train کردن مدل با decay 
+11. به دست آوردن معادله خط از طریق Linear Regression
+12. با `gnuplot` نمودار Actual vs Predicted رسم می کنیم
 ---
 # لیست کار هایی که اپلیکیشن ما انجام میده برای رسیدن به این هدف
 

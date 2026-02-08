@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "report/SCALER.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SCALER"
+              "title": "README"
             }
           }
         ]
@@ -185,6 +185,7 @@
   },
   "active": "64fb7e523761c1be",
   "lastOpenFiles": [
+    "report/SCALER.md",
     "README.md",
     "report/PARSING.md",
     "report/TESTING.md",
@@ -194,7 +195,6 @@
     "report/STATS.md",
     "report/TRAINING.md",
     "report/ZSCORE.md",
-    "report/SCALER.md",
     "example_plot.png",
     "report/_plot.png",
     "report/Untitled",
