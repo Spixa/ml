@@ -69,7 +69,8 @@ longitude,latitude,housing_median_age,total_rooms,total_bedrooms,population,hous
 6. حذف کردن داده های پرت با روش `zscore`  
 7. نرمالایز کردن داده ها بین بازه ای مشخص با روش Robust Scaling که لازم به چند آماره دیگر است (چارک ها)
 8. استفاده از گرادیان کاهشی برای train کردن مدل با decay 
-9. با `gnuplot` نمودار Actual vs Predicted رسم می کنیم
+9. به دست آوردن معادله خط از طریق Linear Regression
+10. با `gnuplot` نمودار Actual vs Predicted رسم می کنیم
 ---
 # لیست کار هایی که اپلیکیشن ما انجام میده برای رسیدن به این هدف
 
